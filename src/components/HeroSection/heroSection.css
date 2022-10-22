@@ -1,0 +1,34 @@
+.hero-container {
+    background: url('../../images/soldiers-silhouette2.jpg') center center/cover no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+    margin-top: -80px;
+}
+
+.hero-btns {
+    margin-top: 32px;
+}
+
+.logo {
+    height: 420px;
+    width: 100%;
+    margin-top: 80px;
+}
+
+@media screen and (max-width: 960px) {
+    .hero-container > .logo {
+        height: 324px
+    }
+}
+    
+@media screen and (max-width: 768px) {
+    .hero-container > .logo {
+        height: 223px
+    }
+}
