@@ -1,5 +1,5 @@
 import * as React from "react"
-import Fullpage from "../components/ReactFullpage"
+import Fullpage from "../components/Fullpage/ReactFullpage"
 
 
 const Timeline = () => (
