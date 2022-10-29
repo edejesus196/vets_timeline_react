@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,700&display=swap');
+
 #section0,
 #section1 {
-    background-size: cover;
+    background: center center/cover no-repeat;
 }
 
 #section0 {
-    background-image: url('../../images/background-shutterstock_249572959_attacks_on_pearl_harber.jpg')
+    background-image: url('../../images/background-shutterstock_249572959_attacks_on_pearl_harber.jpg') ;
+}
+
+#section1 {
+    background-image: url('../../images/background-shutterstock_249572959_attacks_on_pearl_harber.jpg');
+}
+
+h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
 }
