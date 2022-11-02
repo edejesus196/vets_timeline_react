@@ -3,6 +3,8 @@ import { IoMenuSharp, IoCloseSharp } from "react-icons/io5"
 import { IconContext } from "react-icons/lib"
 import {Nav, NavbarContainer, NavLogo, LogoImg, MobileIcon, NavMenu, NavItem, NavLinks } from "./NavbarElements"
 import dsiLogo from '../../images/CUNY-Dominican-Studies-Institute-RGB.png';
+import { AnimatePresence } from 'framer-motion'; 
+import GlobalStyle from '../../globalStyles';
 
 const Navbar = () => {
     const [click, setClick] = useState(false)
@@ -27,25 +29,32 @@ const Navbar = () => {
         <>
             <IconContext.Provider value={{ color: "#fff"}}>
                 <Nav active={scroll} click={click}>
-                    <NavbarContainer>
-                        <NavLogo to='/'>
-                            <LogoImg src={dsiLogo}/>
-                        </NavLogo>
-                        <MobileIcon onClick={handleClick}>
-                            {click ? <IoCloseSharp /> : <IoMenuSharp />}
-                        </MobileIcon>
-                        <NavMenu onClick={handleClick} click={click}>
-                            <NavItem>
-                                <NavLinks to="/">Home</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to="/timeline">Timeline</NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to="/biographies">Biographies</NavLinks>
-                            </NavItem>
-                        </NavMenu>
-                    </NavbarContainer>
+                    <AnimatePresence>
+                        <GlobalStyle />
+                        <NavbarContainer exitBeforeEnter>
+                            <NavLogo to='/'>
+                                <LogoImg src={dsiLogo}/>
+                            </NavLogo>
+                            <MobileIcon onClick={handleClick}>
+                                {click ? <IoCloseSharp /> : <IoMenuSharp />}
+                            </MobileIcon>
+                            <NavMenu onClick={handleClick} click={click}>
+                                <NavItem>
+                                    <NavLinks to="/">Home</NavLinks>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLinks to="/timeline">Timeline</NavLinks>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLinks to="/biographies">Biographies</NavLinks>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLinks to="/about">About</NavLinks>
+                                </NavItem>
+                            </NavMenu>
+                        </NavbarContainer>
+                    </AnimatePresence>
+                    
                 </Nav>
             </IconContext.Provider>
         </>

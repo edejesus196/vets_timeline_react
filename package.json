@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.28",
+    "framer-motion": "^7.6.2",
     "gatsby": "^4.24.4",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-image": "^2.24.0",

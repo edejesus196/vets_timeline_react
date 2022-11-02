@@ -1,9 +1,20 @@
 import * as React from "react"
-import Fullpage from "../components/Fullpage/ReactFullpage"
+import { motion } from 'framer-motion'
+import {animationTwo} from '../animations'
+import Timeline from "../components/timeline"
+import '../../src/components/timeline/timeline.css'
 
 
-const Timeline = () => (
-  <Fullpage/>
+const TimelinePage = () => (
+  <motion.div
+    initial = 'out'
+    animate = 'in'
+    exit = 'out'
+    variants={animationTwo}
+  >
+    <Timeline/>
+  </motion.div>
+  
 )
 
-export default Timeline
+export default TimelinePage
