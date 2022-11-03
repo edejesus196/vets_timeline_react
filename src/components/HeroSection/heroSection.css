@@ -23,12 +23,12 @@
 
 @media screen and (max-width: 960px) {
     .hero-container > .logo {
-        height: 324px
+        height: 400px
     }
 }
     
 @media screen and (max-width: 768px) {
     .hero-container > .logo {
-        height: 223px
+        height: 337px
     }
 }
