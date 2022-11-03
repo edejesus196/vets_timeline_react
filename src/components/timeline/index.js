@@ -34,8 +34,8 @@ const Timeline = () => {
 
     
     const [scrollPosition, setScrollPosition] = useState(0);
-    const [height, setHeight] = useState(0);
-
+    const [agHeight, setHeight] = useState(0);
+    console.log('initial height',agHeight)
     // get Y position
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -51,7 +51,7 @@ const Timeline = () => {
         }
     }, []);
 
-    // get height
+    // get agHeight
     const handleHeight = () => {
         const agHeight = window.innerHeight
 
@@ -67,7 +67,7 @@ const Timeline = () => {
     
     }, [])
 
-    // console.log(height)
+    console.log('index', scrollPosition, agHeight)
 
     
     return (
@@ -75,7 +75,7 @@ const Timeline = () => {
             <div className='ag-section'>
                 <div className='ag-format-container'>
                     <div className='js-timeline ag-timeline'>
-                        <Line height={height}/>
+                        <Line agHeight={agHeight}/>
                         <Events events={events} />
                     </div>
                     
