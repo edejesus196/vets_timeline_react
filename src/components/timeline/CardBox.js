@@ -1,16 +1,31 @@
 import React from 'react'
+import { TimelineCardbox, TimelineCardPoint, TimelineCardPointBox, TimelineMeta, TimelineMetaBox } from './TimelineElements'
 
 const CardBox = ({ event }) => {
-  return (
-    <div className='ag-timeline-card_box'>
-        <div className='js-timeline-card_point-box ag-timeline-card_point-box'>
-            <div className='ag-timeline-card_point'>{event.year}</div>
-        </div>
-        <div className='ag-timeline-card_meta-box'>
-            <div className='ag-timeline-card_meta'>{event.date}</div>
-        </div>
-    </div>
-  )
+  if (event.id % 2 == 0 ) {
+    return (
+      <TimelineCardbox>
+        <TimelineMetaBox>
+          <TimelineMeta>{event.date}</TimelineMeta>
+        </TimelineMetaBox>
+        <TimelineCardPointBox>
+          <TimelineCardPoint>{event.year}</TimelineCardPoint>
+        </TimelineCardPointBox>
+      </TimelineCardbox>
+    )
+  } else {
+    return (
+      <TimelineCardbox>
+        <TimelineCardPointBox>
+          <TimelineCardPoint>{event.year}</TimelineCardPoint>
+        </TimelineCardPointBox>
+        <TimelineMetaBox>
+          <TimelineMeta>{event.date}</TimelineMeta>
+        </TimelineMetaBox>
+      </TimelineCardbox>
+    )
+  }
+  
 }
 
 export default CardBox

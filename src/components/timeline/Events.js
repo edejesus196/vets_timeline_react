@@ -1,18 +1,21 @@
 import React from 'react'
 import CardBox from './CardBox'
 import CardItem from './CardItem'
+import { TimelineItem, TimelineList } from './TimelineElements'
 
 const Events = ({events})=>  {
+  
+  
   return (
-    
-    <div className={'ag-timeline_list'}>
-        {events.map((event) => (
-            <div className='js-timeline_item ag-timeline_item js-ag-active'> 
-                <CardBox event={event}/>
-                <CardItem event={event}/>
-            </div>
+        
+    <TimelineList>
+      {events.map((event) => (
+            <TimelineItem>
+              <CardBox event={event}/>
+              <CardItem event={event}/>
+            </TimelineItem>
         ))}
-    </div>
+    </TimelineList>
     
     
   )

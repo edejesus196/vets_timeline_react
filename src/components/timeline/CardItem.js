@@ -1,16 +1,19 @@
 import React from 'react'
+import { TimeCardItem, TimelineCardDesc, TimelineCardInfo, TimelineCardInner, TimelineCardTitle } from './TimelineElements'
 
 const CardItem = ({ event }) => {
+  
   return (
-    <div className='ag-timeline-card_item'>
-      <div className='ag-timeline-card_inner'>
-        <div className='ag-timeline-card_info'>
-            <div className='ag-timeline-card_title'>{event.date}</div>
-            <div className='ag-timeline-card_desc'> {event.text}
-                  </div>
-        </div>
-      </div>
-    </div>
+    
+    <TimeCardItem>
+      <TimelineCardInner>
+          <TimelineCardInfo>
+              <TimelineCardTitle>{event.date}</TimelineCardTitle>
+              <TimelineCardDesc>{event.text}</TimelineCardDesc>
+          </TimelineCardInfo>
+      </TimelineCardInner>
+    </TimeCardItem>
+ 
   )
 }
 

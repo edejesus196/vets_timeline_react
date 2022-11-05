@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Events from './Events'
+import { GlobalStyle } from './Global'
 // import './timeline.css'
 import Line from './Line'
+import { AgSection, FormatContainer, TimelineBlock, TimelineContainer } from './TimelineElements'
 
 const Timeline = () => {
     const [events, setEvents] = useState ([
@@ -33,9 +35,9 @@ const Timeline = () => {
     ])
 
     
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [agHeight, setHeight] = useState(0);
-    console.log('initial height',agHeight)
+    const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
+    const [agHeight, setHeight] = useState(window.innerHeight);
+    
     // get Y position
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -44,7 +46,7 @@ const Timeline = () => {
     }
 
     useEffect(() =>  {
-        window.addEventListener('resize scroll', handleScroll, { passive: true});
+        window.addEventListener('resize scroll', handleScroll);
 
         return () => {
             window.removeEventListener('resize scroll', handleScroll);
@@ -71,17 +73,20 @@ const Timeline = () => {
 
     
     return (
-        <div className='ag-timeline-block'>
-            <div className='ag-section'>
-                <div className='ag-format-container'>
-                    <div className='js-timeline ag-timeline'>
-                        <Line agHeight={agHeight}/>
-                        <Events events={events} />
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+        <>
+            <GlobalStyle/>
+            <TimelineBlock>
+                <AgSection>
+                    <FormatContainer>
+                        <TimelineContainer>
+                            <Line agHeight={agHeight}/>
+                            <Events events={events} />
+                        </TimelineContainer>
+                    </FormatContainer>
+                </AgSection>
+            </TimelineBlock>
+
+        </>
         
         
     )
