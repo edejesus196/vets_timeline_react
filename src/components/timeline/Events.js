@@ -10,7 +10,7 @@ const Events = ({events})=>  {
         
     <TimelineList>
       {events.map((event) => (
-            <TimelineItem>
+            <TimelineItem  >
               <CardBox event={event}/>
               <CardItem event={event}/>
             </TimelineItem>

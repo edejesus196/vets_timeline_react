@@ -1,8 +1,10 @@
 import React from 'react'
 import { TimelineCardbox, TimelineCardPoint, TimelineCardPointBox, TimelineMeta, TimelineMetaBox } from './TimelineElements'
 
-const CardBox = ({ event }) => {
-  if (event.id % 2 == 0 ) {
+const CardBox = ({ event}) => {
+  
+  // change sequence order of the even event elements 
+  if (event.id % 2 === 0 ) {
     return (
       <TimelineCardbox>
         <TimelineMetaBox>

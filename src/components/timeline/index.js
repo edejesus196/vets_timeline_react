@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import { useRef } from 'react'
 import Events from './Events'
 import { GlobalStyle } from './Global'
 // import './timeline.css'
 import Line from './Line'
-import { AgSection, FormatContainer, TimelineBlock, TimelineContainer } from './TimelineElements'
+import { AgSection, FormatContainer, TimelineBlock, TimelineContainer, TimelineCardPoint, TimelineItem } from './TimelineElements'
 
 const Timeline = () => {
     const [events, setEvents] = useState ([
@@ -35,41 +36,82 @@ const Timeline = () => {
     ])
 
     
-    const [scrollPosition, setScrollPosition] = useState(window.pageYOffset);
+    const [agPosY, setAgPosY] = useState(0);
     const [agHeight, setHeight] = useState(window.innerHeight);
+    const [agFlag, setAgFlag] = useState(false);
+    const [top, setTop] = useState(0);
+    const [bottom, setBottom] = useState(0);
+    const ref = useRef(null);
+
+
+    const fnUpdateWindow = () => {
+       setAgFlag(false)
+
+       const TimelineEls = ref.current;
+
+        const firstPointTopPos = TimelineEls.querySelectorAll(TimelineCardPoint)[0].getBoundingClientRect().top
+        const FirstItemTopPos = TimelineEls.querySelectorAll(TimelineItem)[0].getBoundingClientRect().top
+
+        const TimelineTopPos = TimelineEls.getBoundingClientRect().top
+        const TimelineHeight = TimelineEls.getBoundingClientRect().height
+        const TimelineItemEls = TimelineEls.querySelectorAll(TimelineItem)
+        const lastPointTopPos = TimelineItemEls[TimelineItemEls.length - 1].querySelector(TimelineCardPoint).getBoundingClientRect().top
+
+        console.log(TimelineTopPos + TimelineHeight - lastPointTopPos)
+        
+        setBottom(TimelineTopPos + TimelineHeight - lastPointTopPos)
+
+        setTop(firstPointTopPos - FirstItemTopPos)
+
+    }
+
+    const fnUpdateFrame = () => {
+        agFlag || requestAnimationFrame(fnUpdateWindow);
+        setAgFlag(true);
+    }
+
     
     // get Y position
-    const handleScroll = () => {
+    const fnOnScroll = () => {
         const position = window.pageYOffset;
         
-        setScrollPosition(position)
+        setAgPosY(position)
     }
 
     useEffect(() =>  {
-        window.addEventListener('resize scroll', handleScroll);
-
+        window.addEventListener('resize', fnOnScroll);
+       
         return () => {
-            window.removeEventListener('resize scroll', handleScroll);
+            window.removeEventListener('resize', fnOnScroll);
+            
         }
     }, []);
 
     // get agHeight
-    const handleHeight = () => {
+    const fnOnResize = () => {
+        const position = window.pageYOffset;
         const agHeight = window.innerHeight
-
+        setAgPosY(position)
         setHeight(agHeight)
+
+        console.log('test resize')
     }
     
     useEffect(() => {
-        window.addEventListener('resize', handleHeight);
+        window.addEventListener('resize', fnOnResize);
 
         return () => {
-            window.removeEventListener('resize', handleHeight);
+            window.removeEventListener('resize', fnOnResize);
         };
     
     }, [])
 
-    console.log('index', scrollPosition, agHeight)
+    useEffect(() => {
+        fnUpdateFrame()
+
+
+    }, [agPosY, agHeight]);
+    
 
     
     return (
@@ -78,9 +120,9 @@ const Timeline = () => {
             <TimelineBlock>
                 <AgSection>
                     <FormatContainer>
-                        <TimelineContainer>
-                            <Line agHeight={agHeight}/>
-                            <Events events={events} />
+                        <TimelineContainer ref={ref}>
+                            <Line top={top} bottom={bottom}/>
+                            <Events  events={events} />
                         </TimelineContainer>
                     </FormatContainer>
                 </AgSection>
