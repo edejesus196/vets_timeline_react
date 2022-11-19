@@ -140,20 +140,16 @@ export const TimelineCardPoint = styled.div`
     line-height: 50px;
     width: 50px;
     border: 3px solid #FF0;
-    background-color: #1d1d1b;
+    background-color: ${({active}) => active ? '#FF0':'#1d1d1b'} ;
   
     text-align: center;
     font-family: 'ESL Legend', sans-serif;
     font-size: 20px;
-    color: #FFF;
+    color: ${({active}) => active ? "#1d1d1b" : "#FFF"};
   
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-
-    //active 
-    color: #1d1d1b;
-    background-color: #FF0;
 
     @media only screen and (max-width: 979px) {
         height: 40px;
@@ -179,10 +175,10 @@ export const TimeCardItem = styled.div`
     -o-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
     box-shadow: 0 0 0 0 rgba(0,0,0,.5);
   
-    /* -webkit-transition: -webkit-transform .5s, opacity .5s;
+    -webkit-transition: -webkit-transform .5s, opacity .5s;
     -moz-transition: -moz-transform .5s, opacity .5s;
     -o-transition: -o-transform .5s, opacity .5s;
-    transition: transform .5s, opacity .5s; */
+    transition: transform .5s, opacity .5s;
   
     position: relative;
 
@@ -207,20 +203,13 @@ export const TimelineList = styled.div`
             }
         };
         ${TimeCardItem} {
-            /* -webkit-transform: translateX(200%);
-            -moz-transform: translateX(200%);
-            -ms-transform: translateX(200%);
-            -o-transform: translateX(200%);
-            transform: translateX(200%); */
+            opacity: ${({active}) => active && 1};
 
-            // active 
-            opacity: 1;
-            
-            /* -webkit-transform: translateX(0);
-            -moz-transform: translateX(0);
-            -ms-transform: translateX(0);
-            -o-transform: translateX(0);
-            transform: translateX(0); */
+            -webkit-transform: ${({active}) => active ? "translateX(0)" : "translateX(200%)"};
+            -moz-transform: ${({active}) => active ? "translateX(0)" : "translateX(200%)"};
+            -ms-transform: ${({active}) => active ? "translateX(0)" : "translateX(200%)"};
+            -o-transform: ${({active}) => active ? "translateX(0)" : "translateX(200%)"};
+            transform: ${({active}) => active ? "translateX(0)" : "translateX(200%)"};
 
         };
 
@@ -236,11 +225,11 @@ export const TimelineList = styled.div`
                 };
             };
             ${TimeCardItem} {
-                /* -webkit-transform: translateX(200%);
+                -webkit-transform: translateX(200%);
                 -moz-transform: translateX(200%);
                 -ms-transform: translateX(200%);
                 -o-transform: translateX(200%);
-                transform: translateX(200%); */
+                transform: translateX(200%);
             };
             
         };
@@ -249,31 +238,26 @@ export const TimelineList = styled.div`
     };
     ${TimelineItem}:nth-child(2n+1) {
         ${TimeCardItem} {
-            /* -webkit-transform: translateX(-200%);
-            -moz-transform: translateX(-200%);
-            -ms-transform: translateX(-200%);
-            -o-transform: translateX(-200%);
-            transform: translateX(-200%); */
+            opacity: ${({active}) => active && 1};
 
-             // active 
-            opacity: 1;
+            -webkit-transform: ${({active}) => active? "translateX(0)" : "translateX(-200%)"};
+            -moz-transform: ${({active}) => active? "translateX(0)" : "translateX(-200%)"};
+            -ms-transform: ${({active}) => active? "translateX(0)" : "translateX(-200%)"};
+            -o-transform: ${({active}) => active? "translateX(0)" : "translateX(-200%)"};
+            transform: ${({active}) => active? "translateX(0)" : "translateX(-200%)"};
+            
     
-            /* -webkit-transform: translateX(0);
-            -moz-transform: translateX(0);
-            -ms-transform: translateX(0);
-            -o-transform: translateX(0);
-            transform: translateX(0); */
         };
 
        
 
         @media only screen and (max-width: 979px) {
             ${TimeCardItem} {
-                /* -webkit-transform: translateX(200%);
+                -webkit-transform: translateX(200%);
                 -moz-transform: translateX(200%);
                 -ms-transform: translateX(200%);
                 -o-transform: translateX(200%);
-                transform: translateX(200%); */
+                transform: translateX(200%);
             };
         };
         

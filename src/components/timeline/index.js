@@ -4,7 +4,7 @@ import Events from './Events'
 import { GlobalStyle } from './Global'
 // import './timeline.css'
 import Line from './Line'
-import { AgSection, FormatContainer, TimelineBlock, TimelineContainer, TimelineCardPoint, TimelineItem } from './TimelineElements'
+import { AgSection, FormatContainer, TimelineBlock, TimelineContainer, TimelineCardPoint, TimelineItem, TimelineProgress } from './TimelineElements'
 
 const Timeline = () => {
     const [events, setEvents] = useState ([
@@ -36,12 +36,18 @@ const Timeline = () => {
     ])
 
     
-    const [agPosY, setAgPosY] = useState(0);
+    const [agPosY, setAgPosY] = useState(window.pageYOffset);
     const [agHeight, setHeight] = useState(window.innerHeight);
     const [agFlag, setAgFlag] = useState(false);
-    const [top, setTop] = useState(0);
-    const [bottom, setBottom] = useState(0);
+    const [top, setTop] = useState();
+    const [bottom, setBottom] = useState();
+    const [f, setf] = useState(-1);
+    const [n, setn] = useState();
+    const [agOuterHeight, setAgOuterHeight] = useState(window.outerHeight);
+    
+    const [agTop, setAgTop] = useState()
     const ref = useRef(null);
+    
 
 
     const fnUpdateWindow = () => {
@@ -56,13 +62,34 @@ const Timeline = () => {
         const TimelineHeight = TimelineEls.getBoundingClientRect().height
         const TimelineItemEls = TimelineEls.querySelectorAll(TimelineItem)
         const lastPointTopPos = TimelineItemEls[TimelineItemEls.length - 1].querySelector(TimelineCardPoint).getBoundingClientRect().top
-
-        console.log(TimelineTopPos + TimelineHeight - lastPointTopPos)
         
         setBottom(TimelineTopPos + TimelineHeight - lastPointTopPos)
 
         setTop(firstPointTopPos - FirstItemTopPos)
 
+        f !== agPosY && (setf( agPosY, agHeight, fnUpdateProgress()))
+
+    }
+
+    const fnUpdateProgress = () => {
+        const TimelineEls = ref.current;
+        const TimelineItemEls = TimelineEls.querySelectorAll(TimelineItem)
+        setAgTop(TimelineItemEls[TimelineItemEls.length - 1].querySelector(TimelineCardPoint).getBoundingClientRect().top)
+    
+        let i = agTop + agPosY - window.pageYOffset
+        let a = TimelineEls.querySelector(TimelineProgress).getBoundingClientRect().top + agPosY - window.pageYOffset
+        setn(agPosY - a + agOuterHeight / 2)
+        i <= agPosY + agOuterHeight / 2 && (setn(i - a))
+
+
+        for (const TimelineItem of TimelineItemEls) {
+            setAgTop(TimelineItem.getBoundingClientRect().top)
+
+            // (agTop + agPosY - window.pageYOffset) < agPosY + .5 * agOuterHeight ? setActive(true) : setActive(false)
+        }
+
+
+        
     }
 
     const fnUpdateFrame = () => {
@@ -76,13 +103,15 @@ const Timeline = () => {
         const position = window.pageYOffset;
         
         setAgPosY(position)
+
+        fnUpdateFrame()
     }
 
     useEffect(() =>  {
-        window.addEventListener('resize', fnOnScroll);
+        window.addEventListener('scroll', fnOnScroll);
        
         return () => {
-            window.removeEventListener('resize', fnOnScroll);
+            window.removeEventListener('scroll', fnOnScroll);
             
         }
     }, []);
@@ -94,7 +123,7 @@ const Timeline = () => {
         setAgPosY(position)
         setHeight(agHeight)
 
-        console.log('test resize')
+        fnUpdateFrame()
     }
     
     useEffect(() => {
@@ -105,14 +134,8 @@ const Timeline = () => {
         };
     
     }, [])
-
-    useEffect(() => {
-        fnUpdateFrame()
-
-
-    }, [agPosY, agHeight]);
     
-
+    
     
     return (
         <>
@@ -121,8 +144,8 @@ const Timeline = () => {
                 <AgSection>
                     <FormatContainer>
                         <TimelineContainer ref={ref}>
-                            <Line top={top} bottom={bottom}/>
-                            <Events  events={events} />
+                            <Line top={top} bottom={bottom} n={n}/>
+                            <Events  agPosY={agPosY} agOuterHeight={agOuterHeight}  agTop={agTop} events={events} />
                         </TimelineContainer>
                     </FormatContainer>
                 </AgSection>

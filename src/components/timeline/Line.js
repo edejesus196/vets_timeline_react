@@ -1,16 +1,13 @@
 import React from 'react'
 import { TimelineLine, TimelineProgress } from './TimelineElements'
 
-const Line = ({ top, bottom }) => {
+const Line = ({ top, bottom, n }) => {
   console.log('line section', top, bottom)
-  const myComponentStyle = {
-    top: top,
-    bottom: bottom,
-  }
+ 
 
   return (
     <TimelineLine style={{top: top, bottom: bottom}}>
-      <TimelineProgress></TimelineProgress>
+      <TimelineProgress style={{height: n + "px"}}></TimelineProgress>
     </TimelineLine>
   )
 }

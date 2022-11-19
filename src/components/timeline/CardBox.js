@@ -1,8 +1,8 @@
 import React from 'react'
 import { TimelineCardbox, TimelineCardPoint, TimelineCardPointBox, TimelineMeta, TimelineMetaBox } from './TimelineElements'
 
-const CardBox = ({ event}) => {
-  
+const CardBox = ({ event, active}) => {
+  console.log('cardbox', active)
   // change sequence order of the even event elements 
   if (event.id % 2 === 0 ) {
     return (
@@ -11,7 +11,7 @@ const CardBox = ({ event}) => {
           <TimelineMeta>{event.date}</TimelineMeta>
         </TimelineMetaBox>
         <TimelineCardPointBox>
-          <TimelineCardPoint>{event.year}</TimelineCardPoint>
+          <TimelineCardPoint active={active}>{event.year}</TimelineCardPoint>
         </TimelineCardPointBox>
       </TimelineCardbox>
     )
@@ -19,7 +19,7 @@ const CardBox = ({ event}) => {
     return (
       <TimelineCardbox>
         <TimelineCardPointBox>
-          <TimelineCardPoint>{event.year}</TimelineCardPoint>
+          <TimelineCardPoint active={active}>{event.year}</TimelineCardPoint>
         </TimelineCardPointBox>
         <TimelineMetaBox>
           <TimelineMeta>{event.date}</TimelineMeta>

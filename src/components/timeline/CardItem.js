@@ -1,11 +1,11 @@
 import React from 'react'
 import { TimeCardItem, TimelineCardDesc, TimelineCardInfo, TimelineCardInner, TimelineCardTitle } from './TimelineElements'
 
-const CardItem = ({ event }) => {
-  
+const CardItem = ({ event, active }) => {
+  console.log('cardItem', active)
   return (
     
-    <TimeCardItem>
+    <TimeCardItem active={active}>
       <TimelineCardInner>
           <TimelineCardInfo>
               <TimelineCardTitle>{event.date}</TimelineCardTitle>
