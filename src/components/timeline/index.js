@@ -1,160 +1,190 @@
-import React, {useState, useEffect} from 'react'
-import { useRef } from 'react'
-import Events from './Events'
+
+import React, { useState, useEffect, useRef } from 'react'
 import { GlobalStyle } from './Global'
-// import './timeline.css'
-import Line from './Line'
-import { AgSection, FormatContainer, TimelineBlock, TimelineContainer, TimelineCardPoint, TimelineItem, TimelineProgress } from './TimelineElements'
+import './timeline.css'
 
 const Timeline = () => {
-    const [events, setEvents] = useState ([
+    const [events, setEvents] = useState([
         {
-            id: 1,
-            year: '1939',
-            date: 'Sep 1, 1939',
-            text: 'World War II began on September 1, 1939 with the invasion of Poland by Nazi Germany under Adolf Hitler.'
-        
+          id: 1,
+          year: 2021,
+          season: 'Season 13',
+          img: "https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/images/img-13.png",
+          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula\
+                        eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient\
+                        montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,\
+                        pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla\
+                        vel, aliquet nec, vulputate eget, arcu.'
         },
         {
-            id: 2,
-            year: '1940',
-            date: 'Sep 16, 1940',
-            text: 'As the war escalated overseas, the US instituted the Selective Training and Service Act of 1940 on September 16 requiring all men between the ages of 21 and 45 to register for the draft. According to US Census records, there were close to 1,500 Dominicans in the US around the time of the draft. Dominican males within the relevant age range totaled close to 400'
+          id: 2,
+          year: 2020,
+          season: 'Season 12',
+          img: "https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/images/img-12.png",
+          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula\
+                        eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient\
+                        montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,\
+                        pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla\
+                        vel, aliquet nec, vulputate eget, arcu.'
         },
         {
-            id: 3,
-            year: '1941',
-            date: 'December 7, 1941',
-            text: 'A year later, on December 7, 1941, the Imperial Japanese Navy attacked the US Navy fleet at the base of Pearl Harbor. The US subsequently declared war on Japan and the Axis power unilaterally declared war on the US.'
-        },
-        {
-            id: 4,
-            year: '1943',
-            date: 'October 28, 1943',
-            text: 'Approximately 340 Dominicans enlisted in the US Armed Forces during World War II. News of their service made its way back home. On October 28, 1943, La Nacion, then the national paper of the Dominican Republic, published a list with the names of 112 Dominicans serving in the US Armed Forces.'
+          id: 3,
+          year: 2020,
+          season: 'Season 11',
+          img: "https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/images/img-11.png",
+          description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula\
+                        eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient\
+                        montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,\
+                        pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla\
+                        vel, aliquet nec, vulputate eget, arcu.'
         }
-    ])
-
+      ])
+      const agTimeline = useRef(null);
+      const agTimelineLine = useRef(null);
+      const agTimelineLineProgress = useRef(null);
+      const agTimelinePoints = useRef([]);
+      agTimelinePoints.current = []
+      const agTimelineItems = useRef([]);
+      agTimelineItems.current = []
+      const [agOuterHeight, setAgOuterHeight] = useState(window.innerHeight)
+      const [agHeight, setAgHeight] = useState(0);
+      const [f, setF] = useState(-1);
+      const [n, setN] = useState(0)
+      const [agFlag, setAgFlag] = useState(false);
+      const [agPosY, setAgPosY] = useState(0);
+      const [top, setTop] = useState(0);
+      const [bottom, setBottom] = useState(0);
     
-    const [agPosY, setAgPosY] = useState(window.pageYOffset);
-    const [agHeight, setHeight] = useState(window.innerHeight);
-    const [agFlag, setAgFlag] = useState(false);
-    const [top, setTop] = useState();
-    const [bottom, setBottom] = useState();
-    const [f, setf] = useState(-1);
-    const [n, setn] = useState();
-    const [agOuterHeight, setAgOuterHeight] = useState(window.outerHeight);
     
-    const [agTop, setAgTop] = useState()
-    const ref = useRef(null);
     
-
-
-    const fnUpdateWindow = () => {
-       setAgFlag(false)
-
-       const TimelineEls = ref.current;
-
-        const firstPointTopPos = TimelineEls.querySelectorAll(TimelineCardPoint)[0].getBoundingClientRect().top
-        const FirstItemTopPos = TimelineEls.querySelectorAll(TimelineItem)[0].getBoundingClientRect().top
-
-        const TimelineTopPos = TimelineEls.getBoundingClientRect().top
-        const TimelineHeight = TimelineEls.getBoundingClientRect().height
-        const TimelineItemEls = TimelineEls.querySelectorAll(TimelineItem)
-        const lastPointTopPos = TimelineItemEls[TimelineItemEls.length - 1].querySelector(TimelineCardPoint).getBoundingClientRect().top
-        
-        setBottom(TimelineTopPos + TimelineHeight - lastPointTopPos)
-
-        setTop(firstPointTopPos - FirstItemTopPos)
-
-        f !== agPosY && (setf( agPosY, agHeight, fnUpdateProgress()))
-
-    }
-
-    const fnUpdateProgress = () => {
-        const TimelineEls = ref.current;
-        const TimelineItemEls = TimelineEls.querySelectorAll(TimelineItem)
-        setAgTop(TimelineItemEls[TimelineItemEls.length - 1].querySelector(TimelineCardPoint).getBoundingClientRect().top)
-    
-        let i = agTop + agPosY - window.pageYOffset
-        let a = TimelineEls.querySelector(TimelineProgress).getBoundingClientRect().top + agPosY - window.pageYOffset
-        setn(agPosY - a + agOuterHeight / 2)
-        i <= agPosY + agOuterHeight / 2 && (setn(i - a))
-
-
-        for (const TimelineItem of TimelineItemEls) {
-            setAgTop(TimelineItem.getBoundingClientRect().top)
-
-            // (agTop + agPosY - window.pageYOffset) < agPosY + .5 * agOuterHeight ? setActive(true) : setActive(false)
-        }
-
-
-        
-    }
-
-    const fnUpdateFrame = () => {
-        agFlag || requestAnimationFrame(fnUpdateWindow);
-        setAgFlag(true);
-    }
-
-    
-    // get Y position
-    const fnOnScroll = () => {
-        const position = window.pageYOffset;
-        
-        setAgPosY(position)
-
-        fnUpdateFrame()
-    }
-
-    useEffect(() =>  {
+      useEffect(() => {
         window.addEventListener('scroll', fnOnScroll);
-       
-        return () => {
-            window.removeEventListener('scroll', fnOnScroll);
-            
-        }
-    }, []);
-
-    // get agHeight
-    const fnOnResize = () => {
-        const position = window.pageYOffset;
-        const agHeight = window.innerHeight
-        setAgPosY(position)
-        setHeight(agHeight)
-
-        fnUpdateFrame()
-    }
-    
-    useEffect(() => {
         window.addEventListener('resize', fnOnResize);
-
+    
+        setAgOuterHeight(window.outerHeight);
+        setAgHeight(window.innerHeight);
+    
         return () => {
-            window.removeEventListener('resize', fnOnResize);
+          window.removeEventListener('scroll', fnOnScroll)
+          window.removeEventListener('resize', fnOnResize)
         };
+      }, []);
     
-    }, [])
+      // useEffect(() => {
+      //   fnUpdateFrame();
+        
+      // }, [agPosY, agHeight]);
     
+      function fnOnScroll() {
+        setAgPosY(window.scrollY);
+      }
     
+      function fnOnResize() {
+        setAgPosY(window.scrollY);
+        setAgHeight(window.innerHeight);
+      }
     
-    return (
-        <>
-            <GlobalStyle/>
-            <TimelineBlock>
-                <AgSection>
-                    <FormatContainer>
-                        <TimelineContainer ref={ref}>
-                            <Line top={top} bottom={bottom} n={n}/>
-                            <Events  agPosY={agPosY} agOuterHeight={agOuterHeight}  agTop={agTop} events={events} />
-                        </TimelineContainer>
-                    </FormatContainer>
-                </AgSection>
-            </TimelineBlock>
-
-        </>
+      function fnUpdateWindow() {
+        setAgFlag(false);
+    
+        setTop((agTimelineItems.current[0].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top + window.scrollY)-  (agTimelineItems.current[0].getBoundingClientRect().top + window.scrollY))
+    
+        setBottom((agTimeline.current.getBoundingClientRect().top + window.scrollY)  + agTimeline.current.getBoundingClientRect().height - (agTimelineItems.current[agTimelineItems.current.length-1].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top + window.scrollY))
         
         
-    )
+        if (f !== agPosY ) {
+          setF(agPosY);
+          fnUpdateProgress()
+        }
+        // f !== agPosY && (setF(agPosY), agHeight, fnUpdateProgress())
+      }
+    
+      function fnUpdateProgress() {
+        const agTop = agTimelineItems.current[agTimelineItems.current.length-1].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top + window.scrollY
+    
+        let i = agTop + agPosY - window.scrollY;
+        let a = (agTimelineLineProgress.current.getBoundingClientRect().top + window.scrollY) + agPosY - window.scrollY;
+        setN(agPosY - a + agOuterHeight / 2);
+        if (i <= agPosY + agOuterHeight / 2)  setN(i - a)
+        console.log(`i: ${i}, a: ${a}, agTop: ${agTop}, agOuterHeight: ${agOuterHeight}, agPosY: ${agPosY},`)
+        // agTimelineLineProgress.current.style.height = n + "px";
+    
+        const items = agTimelineItems.current;
+       
+        for (let i = 0; i < items.length; i++) {
+          const agTop = items[i].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top + window.scrollY;
+          if (agTop + agPosY - window.scrollY < agPosY + 0.5 * agOuterHeight) {
+            items[i].classList.add('js-ag-active');
+          } else {
+            items[i].classList.remove('js-ag-active');
+          }
+        }
+      }
+    
+      useEffect(() => {
+        if (!agFlag) {
+          requestAnimationFrame(fnUpdateWindow);
+        }
+        setAgFlag(true);
+      }, [agPosY, agHeight])
+    
+      const addToAgTimelinePoints = (el) => {
+        if (el && !agTimelinePoints.current.includes(el)) {
+          agTimelinePoints.current.push(el);
+        }
+      }
+    
+      const addAgTimelineItems = (el) => {
+        if (el && !agTimelineItems.current.includes(el)) {
+          agTimelineItems.current.push(el);
+        }
+        
+      }
+    
+      return (
+        <div className="ag-timeline-block">
+          <div className="ag-timeline_title-box">
+            <div className="ag-timeline_tagline">Timeline</div>
+            <div className="ag-timeline_title">No Flex</div>
+          </div>
+          <section className="ag-section">
+            <div className="ag-format-container" >
+              <div className="js-timeline ag-timeline" ref={agTimeline}>
+                <div className="js-timeline_line ag-timeline_line" ref={agTimelineLine} style={{top: top, bottom: bottom}}>
+                  <div className="js-timeline_line-progress ag-timeline_line-progress" ref={agTimelineLineProgress} style={{height: n + 'px'}}></div>
+                </div>
+                <div className="ag-timeline_list" >
+                  {events.map((event) => (
+                    <div key={event.id} ref={addAgTimelineItems} className="js-timeline_item ag-timeline_item">
+                      <div className="ag-timeline-card_box">
+                        <div className="js-timeline-card_point-box ag-timeline-card_point-box">
+                          <div className="ag-timeline-card_point">{event.year}</div>
+                        </div>
+                        <div className="ag-timeline-card_meta-box">
+                          <div className="ag-timeline-card_meta">{event.season}</div>
+                        </div>
+                      </div>
+                      <div className="ag-timeline-card_item">
+                        <div className="ag-timeline-card_inner">
+                          <div className="ag-timeline-card_img-box">
+                            <img src={event.img} />
+                          </div>
+                          <div className="ag-timeline-card_info">
+                            <div className="ag-timeline-card_title">{event.season}</div>
+                            <div className="ag-timeline-card_desc">{event.description}</div>
+                          </div>
+                        </div>
+                        <div className="ag-timeline-card_arrow"></div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      )
 }
 
-export default Timeline
+export default Timeline;
