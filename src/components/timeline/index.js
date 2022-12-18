@@ -55,8 +55,6 @@ const Timeline = () => {
       const [top, setTop] = useState(0);
       const [bottom, setBottom] = useState(0);
     
-    
-    
       useEffect(() => {
         window.addEventListener('scroll', fnOnScroll);
         window.addEventListener('resize', fnOnResize);
@@ -103,10 +101,11 @@ const Timeline = () => {
         const agTop = agTimelineItems.current[agTimelineItems.current.length-1].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top + window.scrollY
     
         let i = agTop + agPosY - window.scrollY;
+        // console.log(agTop, agPosY, window.scrollY)
         let a = (agTimelineLineProgress.current.getBoundingClientRect().top + window.scrollY) + agPosY - window.scrollY;
         setN(agPosY - a + agOuterHeight / 2);
         if (i <= agPosY + agOuterHeight / 2)  setN(i - a)
-        console.log(`i: ${i}, a: ${a}, agTop: ${agTop}, agOuterHeight: ${agOuterHeight}, agPosY: ${agPosY},`)
+        // console.log(`i: ${i}, a: ${a}, agTop: ${agTop}, agOuterHeight: ${agOuterHeight}, agPosY: ${agPosY},`)
         // agTimelineLineProgress.current.style.height = n + "px";
     
         const items = agTimelineItems.current;
@@ -120,10 +119,12 @@ const Timeline = () => {
           }
         }
       }
+
+
     
       useEffect(() => {
         if (!agFlag) {
-          requestAnimationFrame(fnUpdateWindow);
+          window.requestAnimationFrame(fnUpdateWindow);
         }
         setAgFlag(true);
       }, [agPosY, agHeight])
@@ -160,21 +161,21 @@ const Timeline = () => {
                         <div className="js-timeline-card_point-box ag-timeline-card_point-box">
                           <div className="ag-timeline-card_point">{event.year}</div>
                         </div>
-                        <div className="ag-timeline-card_meta-box">
+                        {/* <div className="ag-timeline-card_meta-box">
                           <div className="ag-timeline-card_meta">{event.season}</div>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="ag-timeline-card_item">
                         <div className="ag-timeline-card_inner">
-                          <div className="ag-timeline-card_img-box">
+                          {/* <div className="ag-timeline-card_img-box">
                             <img src={event.img} />
-                          </div>
+                          </div> */}
                           <div className="ag-timeline-card_info">
                             <div className="ag-timeline-card_title">{event.season}</div>
                             <div className="ag-timeline-card_desc">{event.description}</div>
                           </div>
                         </div>
-                        <div className="ag-timeline-card_arrow"></div>
+                        {/* <div className="ag-timeline-card_arrow"></div> */}
                       </div>
                     </div>
                   ))}
