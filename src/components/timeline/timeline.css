@@ -76,7 +76,7 @@ body {
   }
   
   .ag-timeline_item {
-    margin: 0 0 320px;
+    margin: 0 0 150px;
   
     position: relative;
   }
@@ -146,10 +146,34 @@ body {
     -moz-border-radius: 50%;
     border-radius: 50%;
   }
+
+  .ag-timeline-inner_circle {
+    position: relative;
+    color: #1d1d1b;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+
+  }
+
+
   .js-ag-active .ag-timeline-card_point {
     color: #1d1d1b;
-    background-color: #FF0;
+    /* background-color: #FF0; */
   }
+
+  .js-ag-active .ag-timeline-inner_circle {
+    color: #1d1d1b;
+    background-color: #FF0;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    
+  }
+
+
   .ag-timeline-card_meta-box {
     display: inline-block;
   }
@@ -168,7 +192,7 @@ body {
     text-align: right;
     /* background-color: #282828; */
   
-    opacity: 0;
+    opacity: 0.25;
   
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -187,18 +211,18 @@ body {
     position: relative;
   }
   .ag-timeline_item:nth-child(2n+1) .ag-timeline-card_item {
-    -webkit-transform: translateX(-200%);
+    /* -webkit-transform: translateX(-200%);
     -moz-transform: translateX(-200%);
     -ms-transform: translateX(-200%);
     -o-transform: translateX(-200%);
-    transform: translateX(-200%);
+    transform: translateX(-200%); */
   }
   .ag-timeline_item:nth-child(2n) .ag-timeline-card_item {
-    -webkit-transform: translateX(200%);
+    /* -webkit-transform: translateX(200%);
     -moz-transform: translateX(200%);
     -ms-transform: translateX(200%);
     -o-transform: translateX(200%);
-    transform: translateX(200%);
+    transform: translateX(200%); */
   }
   .js-ag-active.ag-timeline_item:nth-child(2n+1) .ag-timeline-card_item,
   .js-ag-active.ag-timeline_item:nth-child(2n) .ag-timeline-card_item {
@@ -244,8 +268,8 @@ body {
     padding: 20px 30px;
   }
   .ag-timeline-card_title {
-    display: none;
-    margin: 10px 0 0;
+    /* display: none; */
+    margin: 0 0 10px;
   
     font-family: 'ESL Legend', sans-serif;
     font-weight: bold;

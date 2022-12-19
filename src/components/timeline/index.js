@@ -159,7 +159,10 @@ const Timeline = () => {
                     <div key={event.id} ref={addAgTimelineItems} className="js-timeline_item ag-timeline_item">
                       <div className="ag-timeline-card_box">
                         <div className="js-timeline-card_point-box ag-timeline-card_point-box">
-                          <div className="ag-timeline-card_point">{event.year}</div>
+                          {/* <div className="ag-timeline-card_point">{event.year}</div> */}
+                          <div className="ag-timeline-card_point">
+                            <div className="ag-timeline-inner_circle"></div>
+                          </div>
                         </div>
                         {/* <div className="ag-timeline-card_meta-box">
                           <div className="ag-timeline-card_meta">{event.season}</div>
