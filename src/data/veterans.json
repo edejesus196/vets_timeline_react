@@ -1,0 +1,19 @@
+
+[
+    {
+      "id": 1,
+      "name": "John Smith",
+      "picture": "https://example.com/veterans/1/picture.jpg",
+      "dateOfBirth": "1925-01-01",
+      "militaryBranch": "Army",
+      "rank": "Private"
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "picture": "https://example.com/veterans/2/picture.jpg",
+      "dateOfBirth": "1926-02-14",
+      "militaryBranch": "Navy",
+      "rank": "Lieutenant"
+    }
+]
