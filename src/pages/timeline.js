@@ -2,11 +2,12 @@ import * as React from "react"
 import { motion } from 'framer-motion'
 import {animationTwo} from '../animations'
 import Timeline from "../components/timeline"
-import '../../src/components/timeline/timeline.css'
+import Layout from "../components/layout"
 
 
 const TimelinePage = () => (
-  <motion.div
+ 
+    <motion.div
     initial = 'out'
     animate = 'in'
     exit = 'out'
@@ -14,6 +15,9 @@ const TimelinePage = () => (
   >
     <Timeline/>
   </motion.div>
+  
+
+  
   
 )
 
