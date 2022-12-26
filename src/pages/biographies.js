@@ -1,13 +1,14 @@
 import * as React from "react"
 
 import Layout from "../components/layout"
+import Biographies from "../components/Biographies"
 
 
-const Biographies = () => (
+const BiographiesPage = () => (
   <Layout>
-    <h1>Biographies</h1>
+    <Biographies/>
     
   </Layout>
 )
 
-export default Biographies
+export default BiographiesPage
