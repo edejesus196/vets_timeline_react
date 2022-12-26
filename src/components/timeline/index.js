@@ -109,14 +109,12 @@ const Timeline = () => {
   }, []);
 
   useEffect(() => {
+    
     window.requestAnimationFrame(fnUpdateWindow);
+    
   }, [state.agPosY, state.agHeight])
   
   const fnUpdateWindow = () => {
-
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-
-    dispatch({ type: 'set-ag-pos-y', agPosY: scrollTop });
 
     const newTop = (agTimeline.current.querySelectorAll('.js-timeline_item')[0].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top + window.scrollY) - (agTimeline.current.querySelectorAll('.js-timeline_item')[0].getBoundingClientRect().top + window.scrollY)
     const newBotton = (agTimeline.current.getBoundingClientRect().top) + agTimeline.current.getBoundingClientRect().height - (agTimeline.current.querySelectorAll('.js-timeline_item')[agTimeline.current.querySelectorAll('.js-timeline_item').length - 1].querySelector('.js-timeline-card_point-box').getBoundingClientRect().top)
@@ -168,7 +166,6 @@ const Timeline = () => {
       <section className="ag-section">
         <div className="ag-format-container" >
           <div className="js-timeline ag-timeline" ref={agTimeline}>
-            {/* <div className="js-timeline_line ag-timeline_line" style={{top: top, bottom: bottom}}> */}
             <div className="js-timeline_line ag-timeline_line" style={{top: state.top, bottom: state.bottom}}>
 
               <div className="js-timeline_line-progress ag-timeline_line-progress" style={{height: state.n + 'px'}}></div>
