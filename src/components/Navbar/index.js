@@ -49,6 +49,9 @@ const Navbar = () => {
                                     <NavLinks to="/biographies">Biographies</NavLinks>
                                 </NavItem>
                                 <NavItem>
+                                    <NavLinks to="/addvet">Add Veteran</NavLinks>
+                                </NavItem>
+                                <NavItem>
                                     <NavLinks to="/about">About</NavLinks>
                                 </NavItem>
                             </NavMenu>
